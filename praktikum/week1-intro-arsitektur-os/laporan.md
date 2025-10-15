@@ -81,6 +81,7 @@ dmesg | head
 ## Hasil Eksekusi
 Sertakan screenshot hasil percobaan atau diagram:
 ![alt text](<screenshots/pratikum week1_belinda.jpeg>)
+![alt text](<screenshots/Diagram Belinda.jpeg>)
 
 ---
 
