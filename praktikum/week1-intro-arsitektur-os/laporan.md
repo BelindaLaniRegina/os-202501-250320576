@@ -14,19 +14,19 @@ Topik: "Arsitektur Sistem Operasi dan Kernel"
 ## Tujuan
 Tuliskan tujuan praktikum minggu ini.  
 Contoh:  
-> Dapat menjelaskan fungsi utama sistem operasi dan peran kernel serta system call.
-> Mengidentifikasi komponen utama OS (kernel, system call, device driver, file system).
-> Membandingkan model arsitektur OS (monolithic, layered, microkernel).
-> Menggambarkan diagram sederhana arsitektur OS menggunakan alat bantu digital (draw.io / mermaid).
+> 1. Dapat menjelaskan fungsi utama sistem operasi dan peran kernel serta system call.
+> 2. Dapat mengidentifikasi komponen utama OS (kernel, system call, device driver, file system).
+> 3. Dapat membandingkan model arsitektur OS (monolithic, layered, microkernel).
+> 4. Dapat menggambarkan diagram sederhana arsitektur OS menggunakan alat bantu digital (draw.io / mermaid).
 
 ---
 
 ## Dasar Teori
 Tuliskan ringkasan teori (3–5 poin) yang mendasari percobaan.
-> Pengertian Sistem Operasi dan Kernel, sistem operasi (OS) adalah perangkat lunak inti yang mengelola perangkat keras dan menyediakan layanan untuk program aplikasi.
+> 1. Pengertian Sistem Operasi dan Kernel, sistem operasi (OS) adalah perangkat lunak inti yang mengelola perangkat keras dan menyediakan layanan untuk program aplikasi.
 Kernel adalah komponen inti dari sistem operasi yang berperan sebagai perantara antara perangkat keras dan perangkat lunak.
-> Konsep Sistem Operasi dan Kernel, sistem operasi mengatur dan mengelola perangkat keras serta sumber daya sistem. Di Linux, komponen utama dari sistem operasi adalah kernel, yang bertanggung jawab atas manajemen memori, proses, sistem file, dan perangkat keras.
-> Jenis-Jenis Arsitektur Kernel, Monolithic Kernel: Seluruh layanan sistem berjalan dalam mode kernel. Contoh: Linux.
+> 2. Konsep Sistem Operasi dan Kernel, sistem operasi mengatur dan mengelola perangkat keras serta sumber daya sistem. Di Linux, komponen utama dari sistem operasi adalah kernel, yang bertanggung jawab atas manajemen memori, proses, sistem file, dan perangkat keras.
+> 3. Jenis-Jenis Arsitektur Kernel, Monolithic Kernel: Seluruh layanan sistem berjalan dalam mode kernel. Contoh: Linux.
 Microkernel: Hanya fungsi dasar yang berjalan di kernel, layanan lainnya berjalan di ruang pengguna. Contoh: Minix, QNX.
 Hybrid Kernel: Gabungan monolithic dan microkernel. Contoh: Windows NT, macOS.
 
