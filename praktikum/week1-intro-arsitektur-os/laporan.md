@@ -33,7 +33,32 @@ Hybrid Kernel: Gabungan monolithic dan microkernel. Contoh: Windows NT, macOS.
 ---
 
 ## Langkah Praktikum
-1. Langkah-langkah yang dilakukan.  
+1. Setup Environment
+Pastikan Linux (Ubuntu/WSL) sudah terinstal.
+Pastikan Git sudah dikonfigurasi dengan benar:
+git config --global user.name "Nama Anda"
+git config --global user.email "email@contoh.com"
+Diskusi Konsep
+Baca materi pengantar tentang komponen OS.
+Identifikasi komponen yang ada pada Linux/Windows/Android.
+Eksperimen Dasar Jalankan perintah berikut di terminal:
+uname -a
+whoami
+lsmod | head
+dmesg | head
+Catat dan analisis modul kernel yang tampil.
+Membuat Diagram Arsitektur
+Buat diagram hubungan antara User → System Call → Kernel → Hardware.
+Gunakan draw.io atau Mermaid.
+Simpan hasilnya di:
+praktikum/week1-intro-arsitektur-os/screenshots/diagram-os.png
+Penulisan Laporan
+Tuliskan hasil pengamatan, analisis, dan kesimpulan ke dalam laporan.md.
+Tambahkan screenshot hasil terminal ke folder screenshots/.
+Commit & Push
+git add .
+git commit -m "Minggu 1 - Arsitektur Sistem Operasi dan Kernel"
+git push origin main
 2. Perintah yang dijalankan adalah
 uname -a
 lsmod | head
