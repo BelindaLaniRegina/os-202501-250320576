@@ -23,12 +23,10 @@ Contoh:
 
 ## Dasar Teori
 Tuliskan ringkasan teori (3–5 poin) yang mendasari percobaan.
-> Pengertian Sistem Operasi dan Kernel
-Sistem operasi (OS) adalah perangkat lunak inti yang mengelola perangkat keras dan menyediakan layanan untuk program aplikasi.
+> Pengertian Sistem Operasi dan Kernel, sistem operasi (OS) adalah perangkat lunak inti yang mengelola perangkat keras dan menyediakan layanan untuk program aplikasi.
 Kernel adalah komponen inti dari sistem operasi yang berperan sebagai perantara antara perangkat keras dan perangkat lunak.
 > Konsep Sistem Operasi dan Kernel, sistem operasi mengatur dan mengelola perangkat keras serta sumber daya sistem. Di Linux, komponen utama dari sistem operasi adalah kernel, yang bertanggung jawab atas manajemen memori, proses, sistem file, dan perangkat keras.
-> Jenis-Jenis Arsitektur Kernel
-Monolithic Kernel: Seluruh layanan sistem berjalan dalam mode kernel. Contoh: Linux.
+> Jenis-Jenis Arsitektur Kernel, Monolithic Kernel: Seluruh layanan sistem berjalan dalam mode kernel. Contoh: Linux.
 Microkernel: Hanya fungsi dasar yang berjalan di kernel, layanan lainnya berjalan di ruang pengguna. Contoh: Minix, QNX.
 Hybrid Kernel: Gabungan monolithic dan microkernel. Contoh: Windows NT, macOS.
 
@@ -79,7 +77,11 @@ Linux Asli (native)
 ---
 
 ## Kesimpulan
-Tuliskan 2–3 poin kesimpulan dari praktikum ini.
+kesimpulan dari praktikum ini, yaitu:
+1. Perintah uname -a dan whoami menunjukkan bahwa sistem yang digunakan adalah Linux 64-bit yang berjalan di lingkungan WSL2 dengan akses root, menandakan penggunaan Linux virtual di atas Windows.
+2. Deteksi modul kernel (lsmod | head) dan log awal kernel (dmesg | head) mengonfirmasi fungsi kernel dalam mendeteksi perangkat keras (CPU Intel dan AMD) dan memulai sistem menggunakan system call untuk konfigurasi awal, sesuai dengan teori arsitektur dan fungsi kernel.
+3. Perbedaan lingkungan OS terlihat dari WSL2 yang cocok untuk pengembangan dan pengujian Linux di Windows dengan keterbatasan akses hardware langsung, sedangkan Linux native lebih optimal untuk penggunaan penuh seperti server dan pengelolaan kernel.
+
 
 ---
 ## Tugas
