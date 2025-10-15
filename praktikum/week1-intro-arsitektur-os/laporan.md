@@ -80,7 +80,7 @@ dmesg | head
 
 ## Hasil Eksekusi
 Sertakan screenshot hasil percobaan atau diagram:
-![atl text](screenshots/example.png)
+![alt text](<screenshots/pratikum week1_belinda.jpeg>)
 
 ---
 
