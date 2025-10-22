@@ -23,8 +23,9 @@ Contoh:
 ---
 
 ## Dasar Teori
-Tuliskan ringkasan teori (3–5 poin) yang mendasari percobaan.
-
+1. System call yaitu Gerbang privileged untuk menyeberang dari user mode ke kernel mode, memungkinkan akses terkontrol ke sumber daya sistem yang dilindungi. (OSTEP – Operating Systems: Three Easy Pieces, 2018)
+2. Tugas system call adalah melakukan transisi aman dari user mode ke kernel mode dan mengeksekusi kode privileged atas nama proses pengguna dengan validasi penuh. (Andrew S. Tanenbaum, Herbert Bos. Modern Operating Systems, 4th Edition, Pearson, 2015.)
+3. Fungsi system call, yaitu: Interface Function - Menyediakan API standar ke layanan OS, Protection Function - Melindungi sistem dari akses tidak sah, Abstraction Function - Menyembunyikan kompleksitas hardware, Control Function - Mempertahankan kendali OS atas sumber daya, Standardization Function - Menyediakan interface konsisten antar platform (Abraham Silberschatz, Peter Baer Galvin, Greg Gagne. Operating System Concepts, 10th Edition, Wiley, 2018.)
 ---
 
 ## Langkah Praktikum
@@ -57,24 +58,39 @@ git push origin main
 ## Kode / Perintah
 Tuliskan potongan kode atau perintah utama:
 ```bash
-uname -a
-lsmod | head
-dmesg | head
+strace ls
+strace -e trace=open,read,write,close cat /etc/passwd
+dmesg | tail -n 10
 ```
 
 ---
 
 ## Hasil Eksekusi
 Sertakan screenshot hasil percobaan atau diagram:
-![Screenshot hasil](screenshots/example.png)
+![alt text](<screenshots/Praktikum week 2_1.jpg>)
+![alt text](<screenshots/praktikum week 2_2.jpg>)
+![alt text](<screenshots/praktikum week 2_3.jpg>)
+![alt text](<screenshots/praktikum week 2_4.jpg>)
+![alt text](<screenshots/praktikum week 2_5.jpg>)
+![alt text](<screenshots/praktikum week 2_6.jpg>)
+![alt text](<screenshots/praktikum week 2_7.jpg>)
+
+
+
 
 ---
 
 ## Analisis
-- Jelaskan makna hasil percobaan.  
-- Hubungkan hasil dengan teori (fungsi kernel, system call, arsitektur OS).  
+- Jelaskan makna hasil percobaan.
+  **Dari hasil strace ls, dapat dilihat bahwa perintah ls berkomunikasi dengan kernel melalui system call seperti open, read, write, dan mmap. Kernel bertanggung jawab penuh untuk mengatur akses ke file, memori, dan sumber daya sistem. Percobaan ini menunjukkan hubungan langsung antara user mode dan kernel mode, di mana system call menjadi gerbang utama interaksi. Kalau makna dari percobaan strace -e trace=open,read,write,close cat /etc/passwd dapat kita maknakan bahwa program cat dapat membaca file menggunakan serangkaian system call dasar (open, read, write, close). Kernel mengatur seluruh proses akses file agar aman dan terkontrol. Percobaan ini menunjukkan bagaimana setiap operasi file di Linux selalu melibatkan kernel melalui system call. Dan jika makna hasil percobaan tail -n 10 adalah untuk mlihat 10 baris terakhir dari log pesan kernel (kernel ring buffer).**
+- Hubungkan hasil dengan teori (fungsi kernel, system call, arsitektur OS).
+- **Fungsi Kernel	Kernel menjalankan tugasnya dalam manajemen memori (memory compaction) dan jaringan (TCP eth0).
+System Call	Aktivitas tersebut terjadi karena ada permintaan dari proses pengguna yang diteruskan ke kernel melalui system call.
+Arsitektur OS	dmesg menunjukkan interaksi antara user mode (perintah dmesg) dan kernel mode (log kernel) sebagai bukti sistem berlapis.**
 - Apa perbedaan hasil di lingkungan OS berbeda (Linux vs Windows)?  
-
+**Perbedaan pada jenis Kernel jika Linux menggunakan Monolithic kernel → semua layanan utama (memori, proses, file system, driver) berjalan di ruang kernel. Sedangkan windows menggunakan Hybrid kernel → gabungan antara monolithic & microkernel; beberapa layanan inti tetap di kernel, tetapi lainnya berjalan di mode user (seperti subsistem).
+Ada juga perbedaan dalan akses ke Kernel, jika linux terbuka (open source). Pengguna bisa melihat log kernel (dmesg), memantau system call (strace). Sedangkan windows tertutup (proprietary). Akses kernel dibatasi, pengguna tidak bisa langsung melihat log kernel atau memantau system call.
+Dan yang terakhir perbedaan dalam arsitektur Mode, jika Linux mempunyai dua mode jelas: user mode dan kernel mode. Sedangkan Windows juga punya user mode dan kernel mode, tapi dengan lapisan tambahan (Windows API layer, HAL).**
 ---
 
 ## Kesimpulan
