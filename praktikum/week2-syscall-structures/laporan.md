@@ -74,6 +74,7 @@ Sertakan screenshot hasil percobaan atau diagram:
 ![alt text](<screenshots/praktikum week 2_5.jpg>)
 ![alt text](<screenshots/praktikum week 2_6.jpg>)
 ![alt text](<screenshots/praktikum week 2_7.jpg>)
+![alt text](<screenshots/Diagram week 2.png>)
 
 
 
