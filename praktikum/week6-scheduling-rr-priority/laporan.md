@@ -83,9 +83,7 @@ git push origin main
 ---
 
 ## Hasil Eksekusi
-Sertakan screenshot hasil percobaan atau diagram:
-![Screenshot hasil](screenshots/example.png)
-
+![alt text](<screenshots/Sheduling_rr_priority.png>)
 ---
 
 ## Analisis
