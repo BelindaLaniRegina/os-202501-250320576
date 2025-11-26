@@ -9,10 +9,10 @@ Topik: Concurrency Deadlock
 - **Kelas** : 1DSRA
 
 ## Kelompok
-1. R
-2. Rizzca Anggreany (250320578)
-3. Faizatun Khasanah (250320584)
-4. Belinda Lani Regina (250320576)
+1. Rizki Fernanda Rahardi (250320573) Dokumentasi
+2. Rizzca Anggreany (250320578) Analisa
+3. Faizatun Khasanah (250320584) Dokumentasi 
+4. Belinda Lani Regina (250320576) Implementasi
 ---
 
 ## Tujuan
@@ -54,7 +54,6 @@ Ada empat strategi utama untuk menangani deadlock, sebagaimana dijelaskan dalam 
    - Menghentikan proses (terminate) dan mengalokasikan ulang sumber daya.
    - Rollback: Mengembalikan proses ke state sebelumnya.
    - Linux Manual Pages menjelaskan tools seperti strace untuk debugging deadlock dalam thread.
-4. ignorance (Pengabaian) :
 
 ---
 
@@ -88,13 +87,14 @@ Ada empat strategi utama untuk menangani deadlock, sebagaimana dijelaskan dalam 
 4. *Eksperimen 3 – Analisis Deadlock*
    - Jelaskan empat kondisi deadlock dari versi pertama dan bagaimana kondisi tersebut dipecahkan pada versi fixed.  
    - Sajikan hasil analisis dalam tabel seperti contoh berikut:
-
+     
      | Kondisi Deadlock | Terjadi di Versi Deadlock | Solusi di Versi Fixed |
-     |------------------|---------------------------|------------------------|
+     |-----------------|---------------------------|------------------------|
      | Mutual Exclusion | Ya (satu garpu hanya satu proses) | Gunakan semaphore untuk kontrol akses |
-     | Hold and Wait | Ya | Hindari proses menahan lebih dari satu sumber daya |
+     | Hold and W-ait | Ya | Hindari proses menahan lebih dari satu sumber daya |
      | No Preemption | Ya | Tidak ada mekanisme pelepasan paksa |
      | Circular Wait | Ya | Ubah urutan pengambilan sumber daya |
+
 
 5. *Eksperimen 4 – Dokumentasi*
    - Simpan semua diagram, screenshot simulasi, dan hasil diskusi di:
@@ -129,9 +129,6 @@ Tuliskan potongan kode atau perintah utama:
 - Ekesperimen 1
 ![alt text](<screenshots/week7_eksperimen1.png>)
 - Eksperimen 2
-  1. Semaphore (mutex)
-![alt text](<screenshots/wee7_eksperimen2_semaphore(mutex).png>)
-  2. Maksimal 4 Filsuf
 ![alt text](<screenshots/week7_eksperimen2_max4filsuf.png>)
 ---
 
@@ -180,49 +177,22 @@ for i in range(N):
 time.sleep(3)
 print("Selesai")
 ```
+Deadlock Terjadi ketika kelima filosof bersamaan mengambil garpu kiri terlebih dahulu, lalu semuanya menunggu garpu kanan yang sedang dipegang oleh tetangganya.
+Jika waktu think() mereka selesai hampir bersamaan, situasi ini sangat mungkin terjadi.
+Walaupun adanya random sleep bisa membuat deadlock tidak selalu muncul, risikonya tetap tinggi jika tidak ada mekanisme pencegahan.
+
+---
+
+| **Kondisi Coffman**  | **Penjelasan Sederhana**                                                                      |
+| -------------------- | --------------------------------------------------------------------------------------------- |
+| **Mutual Exclusion** | Setiap garpu hanya dapat dipakai satu filosof pada satu waktu.                                |
+| **Hold and Wait**    | Filosof sudah memegang satu garpu (misalnya garpu kiri), tetapi tetap menunggu garpu lainnya. |
+| **No Preemption**    | Garpu tidak bisa direbut secara paksa; hanya dilepas jika filosof selesai makan.              |
+| **Circular Wait**    | Terjadi lingkaran tunggu: F0 menunggu F1, F1 menunggu F2, …, hingga F4 menunggu F0.           |
+
 - Ekeperimen 2
-1. Semaphore (mutex)
-```
-import threading
-import time
-import random
-
-N = 5
-forks = [threading.Semaphore(1) for _ in range(N)]
-
-def philosopher(i):
-    left = forks[i]
-    right = forks[(i + 1) % N]
-
-    while True:
-        # Thinking
-        print(f"Philosopher {i} is thinking.")
-        time.sleep(random.uniform(0.5, 1.5))
-
-        # ambil garpu kiri
-        left.acquire()
-        print(f"Philosopher {i} ambil garpu KIRI.")
-
-        # ambil garpu kanan
-        right.acquire()
-        print(f"Philosopher {i} ambil garpu KANAN.")
-
-        # makan
-        print(f"Philosopher {i} is makan.")
-        time.sleep(random.uniform(0.5, 1.0))
-
-        # Put down forks
-        left.release()
-        right.release()
-        print(f"Philosopher {i} put down forks.\n")
-
-threads = []
-for i in range(N):
-    t = threading.Thread(target=philosopher, args=(i,))
-    t.start()
-    threads.append(t)
-```
-2. Maksimal 4 Filsuf
+  
+  - Maksimal 4 Filsuf
 ```
 import threading
 import time
@@ -275,13 +245,76 @@ for i in range(N):
     threads.append(t)
 ```
 
+ 1. Deadlock Bisa Dicegah karena kode menggunakan semaphore dengan nilai N−1 (4).
+Artinya, maksimal hanya 4 dari 5 filosof yang boleh masuk ke bagian "mencoba mengambil garpu".
+Deadlock pada Dining Philosophers terjadi ketika semua filosof memegang garpu kiri masing-masing lalu saling menunggu garpu kanan → membentuk circular wait.
+Dengan semaphore N−1:
+Tidak mungkin ada 5 filosof yang bersamaan mencoba mengambil garpu.
+Akibatnya, selalu ada 1 filosof yang tetap bebas (tidak memegang garpu sama sekali).
+Filosof yang bebas memiliki kesempatan untuk:
+- Memegang garpu duluan,
+- Menyelesaikan makan,
+- Lalu melepaskan garpu → memberi jalan ke filosof lainnya.
+Karena circular wait membutuhkan semua filosof terlibat, dan semaphore mencegah kondisi tersebut, maka:
+ Circular Wait dihilangkan → Deadlock mustahil terjadi.
+Ini langsung memutus salah satu syarat Coffman untuk deadlock.
+
+2. Bukti Nyata dari Code Bahwa Deadlock Dicegah, yaitu:
+
+a. Semaphore membatasi hanya 4 filosof
+```
+sema = threading.Semaphore(N - 1)
+```
+Dengan nilai 4, tidak akan pernah ada 5 filosof yang mencoba mengambil garpu bersamaan.
+Ini bukti langsung pencegahan circular wait.
+
+b. Filosof HANYA boleh mengambil garpu setelah mendapatkan izin semaphore
+```
+sema.acquire()
+````
+Ini membuktikan bahwa akses ke garpu dikontrol, bukan liar seperti versi yang menyebabkan deadlock.
+
+c. Setelah selesai makan, semaphore dilepas
+```
+sema.release()
+```
+Sehingga filosof lain pasti mendapat kesempatan bergantian.
+Ini bukti bahwa sistem tetap hidup (no deadlock, no hang).
+
+d. Jika dijalankan, log akan menunjukkan bahwa para filosof terus bergantian makan
+Contoh output pasti muncul berulang-ulang:
+
+Philosopher 2 ambil garpu KIRI.
+Philosopher 2 ambil garpu KANAN.
+Philosopher 2 is makan.
+Philosopher 2 selesai makan.
+
+Philosopher 4 ambil garpu KIRI.
+Philosopher 4 ambil garpu KANAN.
+Philosopher 4 is makan.
+
+Jika deadlock terjadi, tidak akan ada lagi baris "is makan" yang muncul, karena semua filosof akan berhenti pada status menunggu garpu  tapi pada kode ini, output makan akan terus muncul → bukti sistem tidak deadlock.
+
+e. Program berjalan terus tanpa hang Karena ada filosof yang selalu bisa makan, program tidak pernah berhenti total.
+Ini tanda paling jelas bahwa deadlock berhasil dicegah.
+
+- Eksperimen 3
+  
+| *Kondisi Deadlock* | *Terjadi di Versi Deadlock (Kode di atas)* | *Solusi di Versi Fixed* |
+|----------------------|----------------------------------------------|----------------------------|
+| *Mutual Exclusion* | Ya — setiap garpu hanya dapat digunakan oleh satu filosof pada satu waktu (Semaphore(1)) | Tetap gunakan semaphore untuk kontrol akses |
+| *Hold and Wait* | Ya — setiap filosof memegang garpu kiri sambil menunggu garpu kanan | Batasi jumlah filosof yang boleh makan bersamaan (misalnya max 4) |
+| *No Preemption* | Ya — garpu tidak bisa direbut paksa setelah di-acquire | Tambahkan mekanisme melepas garpu jika garpu kedua tidak tersedia |
+| *Circular Wait* | Ya — semua filosof mengambil garpu dalam urutan sama (kiri → kanan) sehingga terjadi siklus tunggu | Ubah urutan pengambilan garpu (misal filosof terakhir ambil kanan dulu) |
+
 
 ---
 
 ## Kesimpulan
-1. Mekanisme sinkronisasi seperti semaphore dan mutex sangat penting untuk menghindari race condition ketika beberapa proses/threads mengakses sumber daya bersama secara bersamaan.
-2. Masalah Dining Philosophers menunjukkan bahwa strategi penguncian yang salah dapat menyebabkan deadlock, terutama jika semua proses menunggu sumber daya satu sama lain dalam pola melingkar.
-3. Modifikasi seperti Odd–Even Fork Picking Rule terbukti mampu menghilangkan kondisi circular wait, sehingga deadlock dapat dihindari tanpa mengurangi paralelisme proses secara signifikan.
+   Pada praktikum Dining Philosophers ini, dapat disimpulkan bahwa versi awal program masih memungkinkan terjadinya deadlock, karena semua kondisi Coffman (Mutual Exclusion, Hold and Wait, No Preemption, dan Circular Wait) terpenuhi. Hal ini menyebabkan setiap filosof bisa saling menunggu garpu yang tidak pernah dilepaskan, sehingga seluruh proses dapat berhenti tanpa ada yang makan.
+   Melalui versi fixed menggunakan semaphore dan modifikasi strategi akses sumber daya, deadlock dapat dicegah. Semaphore berhasil mengatur akses garpu secara lebih aman, membatasi kondisi Hold and Wait, dan memutus Circular Wait dengan mengubah urutan pengambilan garpu. Hasil simulasi menunjukkan bahwa para filosof dapat makan secara bergantian tanpa saling menunggu selamanya.
+   Secara keseluruhan, praktikum ini menunjukkan pentingnya sinkronisasi, pengaturan akses sumber daya, serta penerapan strategi anti-deadlock dalam sistem operasi agar proses dapat berjalan secara aman, efisien, dan tanpa kebuntuan. Jika sinkronisasi dilakukan dengan benar, sistem dapat mencegah konflik dan menjaga kelancaran eksekusi antar proses.
+
 ---
 
 ## Quiz
@@ -308,9 +341,10 @@ for i in range(N):
 
 ## Refleksi Diri
 Tuliskan secara singkat:
-- Apa bagian yang paling menantang minggu ini?  
+- Apa bagian yang paling menantang minggu ini?
+  yang paling menantang minggu ini adalah memahami bagaimana cara mengatasi deadlock.
 - Bagaimana cara Anda mengatasinya?  
-
+  cara mengatasinya dengan mencoba mencaru tahu lebih lanjut tentang hal itu.
 ---
 
 **Credit:**  
