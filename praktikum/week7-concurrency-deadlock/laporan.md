@@ -56,6 +56,19 @@ Ada empat strategi utama untuk menangani deadlock, sebagaimana dijelaskan dalam 
    - Linux Manual Pages menjelaskan tools seperti strace untuk debugging deadlock dalam thread.
 
 ---
+## Dasar Teori
+1. Critical Section & Race Condition
+   - Proses yang berbagi data dapat mengalami race condition, sehingga diperlukan mekanisme untuk menjamin mutual exclusion, progress, dan bounded waiting (konsep dasar dari Dijkstra serta dibahas di Silberschatz, Tanenbaum, dan OSTEP).
+2. Primitif Sinkronisasi (Semaphore, Mutex, Monitor)
+   - Semaphore (Dijkstra) menggunakan operasi P()/V() untuk mengatur akses.
+   - Mutex dan condition variable (pthread/Linux) menyediakan penguncian pada level thread.
+   - Monitor (Tanenbaum) menggabungkan data + prosedur + penguncian otomatis.
+3. Syarat Terjadinya Deadlock
+   - Deadlock muncul jika empat kondisi Coffman terpenuhi: mutual exclusion, hold and wait, no preemption, dan circular wait.
+4. Penanganan Deadlock
+   - Meliputi pencegahan, penghindaran (misalnya Banker’s Algorithm), dan deteksi & pemulihan, sebagaimana dijelaskan di Silberschatz, Tanenbaum, dan OSTEP.
+5. Implementasi Nyata pada Sistem Operasi (Linux)
+   - Linux menyediakan semaphore, mutex, spinlock, dan mekanisme thread (pthread) sesuai prinsip yang dijelaskan di buku dan teori klasik sinkronisasi.
 
 ## Langkah Praktikum
 1. *Persiapan Tim*
