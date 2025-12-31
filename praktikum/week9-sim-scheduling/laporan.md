@@ -11,11 +11,11 @@ Topik: Simulasi Algoritma Penjadwalan CPU
 ---
 
 ## Tujuan
-> Dapat membuat program simulasi algoritma penjadwalan FCFS dan/atau SJF.
-> Dapat menjalankan program dengan dataset uji yang diberikan atau dibuat sendiri.
-> Dapat menyajikan output simulasi dalam bentuk tabel atau grafik.
-> DApat menjelaskan hasil simulasi secara tertulis.
-> Dapat mengunggah kode dan laporan ke Git repository dengan rapi dan tepat waktu.
+> 1. Dapat membuat program simulasi algoritma penjadwalan FCFS dan/atau SJF.
+> 2. Dapat menjalankan program dengan dataset uji yang diberikan atau dibuat sendiri.
+> 3. Dapat menyajikan output simulasi dalam bentuk tabel atau grafik.
+> 4. Dapat menjelaskan hasil simulasi secara tertulis.
+> 5. Dapat mengunggah kode dan laporan ke Git repository dengan rapi dan tepat waktu.
 
 ---
 
