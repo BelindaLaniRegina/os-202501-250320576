@@ -198,14 +198,18 @@ if __name__ == "__main__":
 2. Perbandingan hasil simulasi dengan perhitungan manual
 - FCFS
   - Perhitungan Manual
-![alt text](<screenshots/week9_2.png>)
+    
+    ![alt text](<screenshots/week9_2.png>)
   - Hasil simulasi
-![alt text](<screenshots/week9_5.png>)
+    
+    ![alt text](<screenshots/week9_5.png>)
 - SJF
   - Perhitungan Manual
-![alt text](<screenshots/week9_4.png>)
+  
+     ![alt text](<screenshots/week9_4.png>)
   - Hasil simulasi
-![alt text](<screenshots/week9_6.png>)
+    
+    ![alt text](<screenshots/week9_6.png>)
 
 3.  Kelebihan dan keterbatasan simulasi.
 ```
