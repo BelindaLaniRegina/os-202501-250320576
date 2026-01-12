@@ -100,15 +100,24 @@ Tuliskan 2–3 poin kesimpulan dari praktikum ini.
 ## Quiz
 1. Apa perbedaan antara deadlock prevention, avoidance, dan detection?  
    
-   **Jawaban: Perbedaan antara deadlock prevention, avoidance, dan detection yaitu  Kemungkinan terjadinya kebuntuan dikesampingkan sebelum melakukan permintaan, dengan menghilangkan salah satu kondisi yang diperlukan untuk terjadinya kebuntuan. Contohnya seperti dengan hanya mengizinkan lalu lintas dari satu arah, akan menghilangkan kemungkinan terjadinya kemacetan di jalan. Kalau deadlock avoidance adalah sistem operasi menjalankan algoritma pada permintaan untuk memeriksa kondisi yang aman. Permintaan apa pun yang dapat mengakibatkan kebuntuan tidak akan dikabulkan. Contohnya seperti memeriksa setiap mobil dan tidak mengizinkan mobil apa pun yang dapat menghalangi jalan. Jika sudah ada lalu lintas di jalan, maka mobil yang datang dari arah berlawanan dapat menyebabkan kemacetan. Dan deadlock detection adalah sistem operasi yang  mendeteksi kebuntuan dengan secara teratur memeriksa status sistem, dan memulihkan diri ke keadaan aman menggunakan teknik pemulihan. Contohnya seperti membuka blokir jalan dengan memundurkan mobil dari satu sisi. Pencegahan dan penghindaran kebuntuan dilakukan sebelum kebuntuan terjadi.**
+   Jawaban: Perbedaan antara deadlock prevention, avoidance, dan detection yaitu  Kemungkinan terjadinya kebuntuan dikesampingkan sebelum melakukan permintaan, dengan menghilangkan salah satu kondisi yang diperlukan untuk terjadinya kebuntuan. Contohnya seperti dengan hanya mengizinkan lalu lintas dari satu arah, akan menghilangkan kemungkinan terjadinya kemacetan di jalan. Kalau deadlock avoidance adalah sistem operasi menjalankan algoritma pada permintaan untuk memeriksa kondisi yang aman. Permintaan apa pun yang dapat mengakibatkan kebuntuan tidak akan dikabulkan. Contohnya seperti memeriksa setiap mobil dan tidak mengizinkan mobil apa pun yang dapat menghalangi jalan. Jika sudah ada lalu lintas di jalan, maka mobil yang datang dari arah berlawanan dapat menyebabkan kemacetan. Dan deadlock detection adalah sistem operasi yang  mendeteksi kebuntuan dengan secara teratur memeriksa status sistem, dan memulihkan diri ke keadaan aman menggunakan teknik pemulihan. Contohnya seperti membuka blokir jalan dengan memundurkan mobil dari satu sisi. Pencegahan dan penghindaran kebuntuan dilakukan sebelum kebuntuan terjadi.
    
 2. Mengapa deteksi deadlock tetap diperlukan dalam sistem operasi?  
 
-   **Jawaban: Deteksi deadlock tetap diperlukan dalam sistem operasi karena**
+   Jawaban: Deteksi deadlock tetap diperlukan dalam sistem operasi karena pada sistem yang kompleks pencegahan atau penghindaran deadlock sering tidak efisien atau membatasi kinerja sistem. Tanpa deteksi deadlock, deadlock dapat membuat CPU, memori, atau I/O terkunci permanen oleh proses yang saling menunggu, sehingga sistem menjadi tidak responsif. Maka dari itu, eteksi deadlock adalah komponen penting dalam manajemen sumber daya OS karena memberikan solusi yang praktis dan fleksibel. Deteksi memungkinkan sistem beroperasi dengan efisiensi dan utilitas yang tinggi (tanpa batasan pencegahan), sambil tetap memiliki kemampuan untuk secara otomatis mengidentifikasi dan memulihkan diri dari kebuntuan yang mengancam ketersediaan sistem, terutama pada lapisan kernel dan dalam lingkungan virtual yang kompleks.
      
 3. Apa kelebihan dan kekurangan pendekatan deteksi deadlock?
 
-   **Jawaban: Kelebihan pendekatan deteksi deadlock yaitu **  
+   Jawaban:
+   Kelebihan pendekatan deteksi deadlock yaitu;
+   - Fleksibilitas tinggi dalam alokasi sumber daya
+   - Overhead yang Dapat Dikontrol
+   - Memungkinkan Pemulihan Otomatis (Automatic Recovery)
+     
+   Kekurangan pendekatan deteksi deadlock yaitu;
+   - Biaya dan Kompleksitas Pemulihan yang Tinggi
+   - Keterlambatan Identifikasi (Detection Lag)
+   - Kesulitan dalam Sistem Terdistribusi  
 
 ---
 
