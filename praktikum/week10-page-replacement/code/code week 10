@@ -1,0 +1,58 @@
+reference_string = [7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2]
+frames = 3
+
+
+def print_table(title, steps):
+    print(f"\n{title}")
+    print("+--------+----------+----------+----------+----------+")
+    print("| Page   | Frame 1  | Frame 2  | Frame 3  | Status   |")
+    print("+--------+----------+----------+----------+----------+")
+    for p, m, s in steps:
+        print(f"| {p:<6} | {m[0]:<8} | {m[1]:<8} | {m[2]:<8} | {s:<8} |")
+    print("+--------+----------+----------+----------+----------+")
+
+
+def page_replacement(ref, frames, algo):
+    memory = ['-'] * frames
+    steps, fault = [], 0
+    info = {}
+
+    for t, page in enumerate(ref):
+        if page in memory:
+            status = "HIT"
+        else:
+            fault += 1
+            status = "FAULT"
+
+            if '-' in memory:
+                idx = memory.index('-')
+            else:
+                if algo == "FIFO":
+                    idx = fault % frames - 1
+                else:  # LRU
+                    lru = min(info, key=info.get)
+                    idx = memory.index(lru)
+                    del info[lru]
+
+            memory[idx] = page
+
+        info[page] = t
+        steps.append((page, memory.copy(), status))
+
+    return fault, steps
+
+
+# ================= EKSEKUSI =================
+fifo_fault, fifo_steps = page_replacement(reference_string, frames, "FIFO")
+lru_fault, lru_steps = page_replacement(reference_string, frames, "LRU")
+
+print_table("Proses FIFO", fifo_steps)
+print_table("Proses LRU", lru_steps)
+
+print("\nRINGKASAN HASIL AKHIR")
+print("+------------+--------------+--------------+")
+print("| Algoritma  | Jumlah Frame | Page Fault   |")
+print("+------------+--------------+--------------+")
+print(f"| FIFO       | {frames:^12} | {fifo_fault:^12} |")
+print(f"| LRU        | {frames:^12} | {lru_fault:^12} |")
+print("+------------+--------------+--------------+")
