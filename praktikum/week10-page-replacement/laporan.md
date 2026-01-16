@@ -204,8 +204,13 @@ FIFO ganti halaman paling lama masuk (buta pola akses), LRU ganti halaman paling
 
 ## Refleksi Diri
 Tuliskan secara singkat:
-- Apa bagian yang paling menantang minggu ini?  
-- Bagaimana cara Anda mengatasinya?  
+- Apa bagian yang paling menantang minggu ini?
+
+  Bagian yang paling menantang minggu ini adalah tentang memahami cara kerja FIFO dan LRU.
+  
+- Bagaimana cara Anda mengatasinya?
+
+  Cara saya mengaatasinya yaitu dengan meminta bantuan dari teman dan teknologi.
 
 ---
 
