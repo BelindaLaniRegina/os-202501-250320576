@@ -70,30 +70,76 @@ Topik: Simulasi dan Deteksi Deadlock
 ---
 
 ## Kode / Perintah
-Tuliskan potongan kode atau perintah utama:
-```bash
-uname -a
-lsmod | head
-dmesg | head
+```
+processes = ["P1", "P2", "P3"]
+wait_for = {"P1": "P2", "P2": "P3", "P3": "P1"}
+
+
+def cek_deadlock(processes, wait_for):
+    for p in processes:
+        visited = {p}
+        current = wait_for.get(p)
+        
+        while current and current not in visited:
+            visited.add(current)
+            current = wait_for.get(current)
+        
+        if current in visited:
+            return True
+    return False
+
+def tampilkan_hasil(processes, wait_for, deadlock):
+    print("DETEKSI DEADLOCK")
+    print("-" * 40)
+    for p in processes:
+        print(f"{p} menunggu {wait_for[p]}")
+    print("-" * 40)
+    print(f"Status: {'DEADLOCK' if deadlock else 'AMAN'}")
+
+deadlock = cek_deadlock(processes, wait_for)
+tampilkan_hasil(processes, wait_for, deadlock)
 ```
 
 ---
 
 ## Hasil Eksekusi
-Sertakan screenshot hasil percobaan atau diagram:
-![Screenshot hasil](screenshots/example.png)
+![alt text](<screenshots/week11.png>)
 
 ---
 
 ## Analisis
-- Jelaskan makna hasil percobaan.  
-- Hubungkan hasil dengan teori (fungsi kernel, system call, arsitektur OS).  
-- Apa perbedaan hasil di lingkungan OS berbeda (Linux vs Windows)?  
+1. Sajikan hasil deteksi dalam tabel (proses deadlock / tidak).  
 
+| Proses                | Menunggu Proses Lain | Status            |
+| :-------------------- | :------------------- | :---------------- |
+| P1                    | P2                   | Terlibat deadlock |
+| P2                    | P3                   | Terlibat deadlock |
+| P3                    | P1                   | Terlibat deadlock |
+
+**Kesimpulan Sistem: DEADLOCK**      
+
+2. Jelaskan mengapa deadlock terjadi atau tidak terjadi.
+
+Deadlock terjadi karena setiap proses saling menunggu proses lain kayak bentuk lingkaran.
+- P1 menunggu P2
+- P2 menunggu P3
+- P3 menunggu P1
+
+Hal tersebut mengakibatkan beberapa hal seperti tidak ada proses yang bisa berjalan, semua proses berhenti selamanya, dan sistem mendeteksi kondisi deadlock.
+
+3. Apa perbedaan hasil di lingkungan OS berbeda (Linux vs Windows)?  
+
+Deadlock terjadi jika keempat kondisi berikut terpenuhi, dan pada kasus ini semuanya terpenuhi:
+- Mutual Exclusion, sumber daya hanya bisa digunakan satu proses dalam satu waktu.
+- Hold and Wait, setiap proses memegang satu sumber daya sambil menunggu sumber daya lain.
+- No Preemption, sumber daya tidak bisa direbut paksa, harus dilepas secara sukarela.
+- Circular Wait, terjadi rantai melingkar karena saling menunggu.
 ---
 
 ## Kesimpulan
-Tuliskan 2–3 poin kesimpulan dari praktikum ini.
+1. Deadlock bisa diketahui dengan melihat apakah proses saling menunggu satu sama lain.
+2. Deadlock terjadi jika proses membentuk lingkaran tunggu, sehingga semua proses berhenti dan tidak bisa berjalan.
+3. Jika syarat-syarat deadlock terpenuhi, maka sistem pasti mengalami deadlock
 
 ---
 
@@ -123,8 +169,13 @@ Tuliskan 2–3 poin kesimpulan dari praktikum ini.
 
 ## Refleksi Diri
 Tuliskan secara singkat:
-- Apa bagian yang paling menantang minggu ini?  
-- Bagaimana cara Anda mengatasinya?  
+- Apa bagian yang paling menantang minggu ini?
+  
+  Yang paling menantang minggu ini adalah tentang bagaimana cara untuk membuat program deadlock.
+  
+- Bagaimana cara Anda mengatasinya?
+
+  Cara saya mengatasinya yaitu dengan mencari tahu lebih dalam dan juga dengan meminta bantuan teman bahkan tekonologi saat ini.
 
 ---
 
