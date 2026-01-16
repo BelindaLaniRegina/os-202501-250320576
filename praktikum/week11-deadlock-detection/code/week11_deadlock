@@ -1,0 +1,27 @@
+processes = ["P1", "P2", "P3"]
+wait_for = {"P1": "P2", "P2": "P3", "P3": "P1"}
+
+
+def cek_deadlock(processes, wait_for):
+    for p in processes:
+        visited = {p}
+        current = wait_for.get(p)
+        
+        while current and current not in visited:
+            visited.add(current)
+            current = wait_for.get(current)
+        
+        if current in visited:
+            return True
+    return False
+
+def tampilkan_hasil(processes, wait_for, deadlock):
+    print("DETEKSI DEADLOCK")
+    print("-" * 40)
+    for p in processes:
+        print(f"{p} menunggu {wait_for[p]}")
+    print("-" * 40)
+    print(f"Status: {'DEADLOCK' if deadlock else 'AMAN'}")
+
+deadlock = cek_deadlock(processes, wait_for)
+tampilkan_hasil(processes, wait_for, deadlock)
