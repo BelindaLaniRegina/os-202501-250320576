@@ -142,15 +142,37 @@ print("+------------+--------------+--------------+")
 ---
 
 ## Hasil Eksekusi
-Sertakan screenshot hasil percobaan atau diagram:
-![Screenshot hasil](screenshots/example.png)
+![alt text](<screenshots/week10.png>)
 
+1. Hasil FIFO
+   
+![alt text](<screenshots/week10_fifo.png>)
+
+2. Hasil LRU
+
+![alt text](<screenshots/week10_LRU.png>)
+
+3. Perbandingan
+
+![alt text](<screenshots/week10_ringkasan.png>)
 ---
 
 ## Analisis
-- Jelaskan makna hasil percobaan.  
-- Hubungkan hasil dengan teori (fungsi kernel, system call, arsitektur OS).  
-- Apa perbedaan hasil di lingkungan OS berbeda (Linux vs Windows)?  
+1. Tabel perbandingan
+  
+| Algoritma | Jumlah Page Fault | Keterangan                                                                        |
+| :-------- | :---------------: | :-------------------------------------------------------------------------------- |
+| FIFO      |       **10**      | Mengganti halaman yang pertama kali masuk dengan tidak memperhatikan frekuensi pemakaian |
+| LRU       |       **9**       | Mengganti halaman yang paling lama tidak digunakan dilihat dari riwayat akses      |
+
+2. Jelaskan mengapa jumlah *page fault* bisa berbeda.
+   - FIFO hanya melihat urutan masuk halaman. Halaman yang masuk paling awal akan diganti, meskipun masih sering dipakai.
+   - LRU melihat halaman mana yang paling lama tidak digunakan. Halaman yang masih sering dipakai akan dipertahankan lebih lama.
+     
+3. Analisis algoritma mana yang lebih efisien dan alasannya.
+   - Jumlah page fault lebih sedikit (9 < 10).
+   - LRU menyesuaikan keputusan dengan perilaku akses halaman.
+   - FIFO berpotensi mengalami Belady’s Anomaly (penambahan frame justru menambah page fault).
 
 ---
 
