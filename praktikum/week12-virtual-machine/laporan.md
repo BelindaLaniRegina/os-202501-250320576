@@ -75,15 +75,20 @@ dmesg | head
 ---
 
 ## Hasil Eksekusi
-Sertakan screenshot hasil percobaan atau diagram:
-![Screenshot hasil](screenshots/example.png)
+
+
+![alt text](<screenshots/week12_1.png>)
+![alt text](<screenshots/week12_2.png>)
+![alt text](<screenshots/week12_3.png>)
 
 ---
 
 ## Analisis
-- Jelaskan makna hasil percobaan.  
-- Hubungkan hasil dengan teori (fungsi kernel, system call, arsitektur OS).  
-- Apa perbedaan hasil di lingkungan OS berbeda (Linux vs Windows)?  
+- Jelaskan bagaimana VM menyediakan isolasi antara host dan guest.
+
+  Virtual Machine (VM) berjalan di atas hypervisor (VirtualBox). Hypervisor berperan sebagai lapisan perantara antara host OS dan guest OS.
+  
+- Kaitkan dengan konsep sandboxing dan hardening OS.  
 
 ---
 
@@ -118,8 +123,13 @@ Sertakan screenshot hasil percobaan atau diagram:
 
 ## Refleksi Diri
 Tuliskan secara singkat:
-- Apa bagian yang paling menantang minggu ini?  
-- Bagaimana cara Anda mengatasinya?  
+- Apa bagian yang paling menantang minggu ini?
+
+  Bagian yang paling menantang minngu ini yaitu tentang menganalisis praktikum.
+   
+- Bagaimana cara Anda mengatasinya?
+
+  Cara saya mengatasinya yaitu dengan mencoba lebih dalam saat menganalisis, juga dengan dibantu oleh teman maupun teknologi saat ini.
 
 ---
 
