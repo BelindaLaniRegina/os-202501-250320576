@@ -75,8 +75,12 @@ dmesg | head
 ---
 
 ## Hasil Eksekusi
+- Saat menginstal VirtualBox
+![alt text](<screenshots/week12_4.png>)
+![alt text](<screenshots/week12_5.png>)
+![alt text](<screenshots/week12_6.png>)
 
-
+- OS Guest
 ![alt text](<screenshots/week12_1.png>)
 ![alt text](<screenshots/week12_2.png>)
 ![alt text](<screenshots/week12_3.png>)
