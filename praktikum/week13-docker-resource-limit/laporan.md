@@ -135,19 +135,23 @@ print("Program selesai")
 
 ## Hasil Eksekusi & Analisis
 1. Membuat Dockerfile
+
 ![alt text](<screenshots/docker1.jpeg>)
 
-3. Menjalankan Container Tanpa Limit
-![alt text](<screenshots/docker2.jpeg>)
+2. Menjalankan Container Tanpa Limit
+
+![alt text](<screenshots/docker2.png>)
 
 **Analisis: Bisa diliat kalau penggunaan memori container terus meningkat di setiap iterasinya, dari sekitar 41 MB sampai lebih dari 150 MB. Kenaikan ini terjadi karena program secara bertahap menambahkan alokasi memori, dan Docker tidak berhenti atau membatasi proses tersebut. Hal itu menunjukkan kalau container dijalankan tanpa memory limit, sehingga container bebas menggunakan memori sebanyak yang dibutuhkan selama memori host masih tersedia. Akibatnya, tidak ada mekanisme perlindungan otomatis ketika penggunaan memori terus bertambah. Jadi, menjalankan container tanpa limit memori berisiko bagi sistem, karena container dapat menghabiskan RAM host dan menyebabkan sistem melambat atau crash.**
 
-4. Menjalankan Container Dengan Limit Resource
+3. Menjalankan Container Dengan Limit Resource
+
 ![alt text](<screenshots/docker3.jpeg>)
 
 **Analisis: Bisa diliat bahwa Docker berhasil mendeteksi memory limit sebesar 256 MB. Selama program berjalan, penggunaan memori meningkat secara bertahap di setiap iterasi, sesuai dengan proses alokasi memori yang dilakukan oleh aplikasi di dalam container. Bede dengan kondisi tanpa limit, pada saat penggunaan memori mendekati batas yang ditentukan, program berhenti secara normal dengan pesan “Mendekati limit memori Docker → program berhenti normal”. Itu menunjukkan bahwa pembatasan memori bekerja dengan baik, dan container tidak dibiarkan terus mengambil memori dari host.**
 
-6. Monitoring Sederhana
+4. Monitoring Sederhana
+
 ![alt text](<screenshots/docker4.jpeg>)
 
 ---
