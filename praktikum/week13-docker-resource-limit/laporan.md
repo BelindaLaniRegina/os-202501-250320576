@@ -84,31 +84,78 @@ Topik: Docker – Resource Limit (CPU & Memori)
 ---
 
 ## Kode / Perintah
-Tuliskan potongan kode atau perintah utama:
-```bash
-uname -a
-lsmod | head
-dmesg | head
+```
+import time
+
+BLOCK_MB = 10
+SAFE_LIMIT_MB = 256
+data = []
+
+def read_cgroup_mb(path):
+    try:
+        with open(path) as f:
+            v = f.read().strip()
+            return None if v == "max" else int(v) / (1024 * 1024)
+    except:
+        return None if "max" in path else 0
+
+mem_limit = read_cgroup_mb("/sys/fs/cgroup/memory.max")
+
+print(
+    f"Memory limit terdeteksi: {mem_limit:.0f} MB"
+    if mem_limit else
+    "Tidak ada memory limit Docker"
+)
+
+i = 0
+while True:
+    # Bebani CPU
+    x = 0
+    for j in range(8_000_000):
+        x += j * j
+
+    # Alokasi memori
+    data.append("X" * (BLOCK_MB * 1024 * 1024))
+
+    mem_used = read_cgroup_mb("/sys/fs/cgroup/memory.current")
+    print(f"Iterasi {i} | Memori terpakai: {mem_used:.2f} MB")
+
+    if mem_limit and mem_used >= SAFE_LIMIT_MB:
+        print("Mendekati limit memori Docker → program berhenti normal")
+        break
+
+    i += 1
+    time.sleep(0.5)
+
+print("Program selesai")
+
 ```
 
 ---
 
-## Hasil Eksekusi
-Sertakan screenshot hasil percobaan atau diagram:
-![Screenshot hasil](screenshots/example.png)
+## Hasil Eksekusi & Analisis
+1. Membuat Dockerfile
+![alt text](<screenshots/docker1.jpeg>)
 
----
+3. Menjalankan Container Tanpa Limit
+![alt text](<screenshots/docker2.jpeg>)
 
-## Analisis
-- Jelaskan makna hasil percobaan.  
-- Hubungkan hasil dengan teori (fungsi kernel, system call, arsitektur OS).  
-- Apa perbedaan hasil di lingkungan OS berbeda (Linux vs Windows)?  
+**Analisis: Bisa diliat kalau penggunaan memori container terus meningkat di setiap iterasinya, dari sekitar 41 MB sampai lebih dari 150 MB. Kenaikan ini terjadi karena program secara bertahap menambahkan alokasi memori, dan Docker tidak berhenti atau membatasi proses tersebut. Hal itu menunjukkan kalau container dijalankan tanpa memory limit, sehingga container bebas menggunakan memori sebanyak yang dibutuhkan selama memori host masih tersedia. Akibatnya, tidak ada mekanisme perlindungan otomatis ketika penggunaan memori terus bertambah. Jadi, menjalankan container tanpa limit memori berisiko bagi sistem, karena container dapat menghabiskan RAM host dan menyebabkan sistem melambat atau crash.**
+
+4. Menjalankan Container Dengan Limit Resource
+![alt text](<screenshots/docker3.jpeg>)
+
+**Analisis: Bisa diliat bahwa Docker berhasil mendeteksi memory limit sebesar 256 MB. Selama program berjalan, penggunaan memori meningkat secara bertahap di setiap iterasi, sesuai dengan proses alokasi memori yang dilakukan oleh aplikasi di dalam container. Bede dengan kondisi tanpa limit, pada saat penggunaan memori mendekati batas yang ditentukan, program berhenti secara normal dengan pesan “Mendekati limit memori Docker → program berhenti normal”. Itu menunjukkan bahwa pembatasan memori bekerja dengan baik, dan container tidak dibiarkan terus mengambil memori dari host.**
+
+6. Monitoring Sederhana
+![alt text](<screenshots/docker4.jpeg>)
 
 ---
 
 ## Kesimpulan
-Tuliskan 2–3 poin kesimpulan dari praktikum ini.
-
+1. Menjalankan container Docker tanpa resource limit menyebabkan penggunaan memori meningkat terus tanpa pembatasan, sehingga berpotensi mengganggu stabilitas sistem host.
+2. Penerapan memory limit pada Docker terbukti efektif membatasi penggunaan memori, karena container dapat berhenti secara terkontrol saat mendekati batas yang ditentukan.
+3. Praktikum ini menunjukkan bahwa pengaturan resource limit (CPU dan memori) sangat penting untuk menjaga keamanan, stabilitas, dan isolasi antar container dalam lingkungan Docker.
 ---
 
 ## Quiz
@@ -135,8 +182,13 @@ Tuliskan 2–3 poin kesimpulan dari praktikum ini.
 
 ## Refleksi Diri
 Tuliskan secara singkat:
-- Apa bagian yang paling menantang minggu ini?  
+- Apa bagian yang paling menantang minggu ini?
+  
+Bagian paling menantang minggu ini adalah memahami perilaku penggunaan memori container Docker, terutama membedakan dampak menjalankan container dengan dan tanpa resource limit serta membaca hasil output penggunaan memori.
+
 - Bagaimana cara Anda mengatasinya?  
+
+Cara mengatasinya adalah dengan melakukan eksperimen langsung menggunakan Docker, mengamati output secara bertahap, serta membandingkan hasil eksekusi container tanpa limit dan dengan limit agar konsep resource limiting lebih mudah dipahami. Dan juga meminta bantuan dari teman dan teknologi yang berkembang saat ini.
 
 ---
 
